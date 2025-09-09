@@ -1855,14 +1855,14 @@ fn formatToShaderFormat(format: wgpu.TextureFormat) []const u8 {
     };
 }
 
-usingnamespace if (emscripten) struct {
-    // Missing symbols
-    var wgpuDeviceTickWarnPrinted: bool = false;
-    pub export fn wgpuDeviceTick() void {
+var wgpuDeviceTickWarnPrinted: bool = false;
+
+pub fn wgpuDeviceTick() void {
+    if (emscripten) {
         if (!wgpuDeviceTickWarnPrinted) {
             std.log.warn("wgpuDeviceTick(): this fn should be avoided! RequestAnimationFrame() is advised for smooth rendering in browser.", .{});
             wgpuDeviceTickWarnPrinted = true;
         }
         emscripten_sleep(1);
     }
-} else struct {};
+}
