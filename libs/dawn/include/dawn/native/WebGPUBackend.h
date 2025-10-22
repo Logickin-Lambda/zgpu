@@ -1,4 +1,4 @@
-// Copyright 2018 The Dawn & Tint Authors
+// Copyright 2025 The Dawn & Tint Authors
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -25,25 +25,25 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#ifndef INCLUDE_DAWN_NATIVE_DAWN_NATIVE_EXPORT_H_
-#define INCLUDE_DAWN_NATIVE_DAWN_NATIVE_EXPORT_H_
+#ifndef INCLUDE_DAWN_NATIVE_WEBGPUBACKEND_H_
+#define INCLUDE_DAWN_NATIVE_WEBGPUBACKEND_H_
 
-#if defined(DAWN_NATIVE_SHARED_LIBRARY)
-#if defined(_WIN32)
-#if defined(DAWN_NATIVE_IMPLEMENTATION)
-#define DAWN_NATIVE_EXPORT __declspec(dllexport)
-#else
-#define DAWN_NATIVE_EXPORT __declspec(dllimport)
-#endif
-#else  // defined(_WIN32)
-#if defined(DAWN_NATIVE_IMPLEMENTATION)
-#define DAWN_NATIVE_EXPORT __attribute__((visibility("default")))
-#else
-#define DAWN_NATIVE_EXPORT
-#endif
-#endif  // defined(_WIN32)
-#else   // defined(DAWN_NATIVE_SHARED_LIBRARY)
-#define DAWN_NATIVE_EXPORT
-#endif  // defined(DAWN_NATIVE_SHARED_LIBRARY)
+#include <ostream>
 
-#endif  // INCLUDE_DAWN_NATIVE_DAWN_NATIVE_EXPORT_H_
+#include "dawn/native/DawnNative.h"
+
+namespace dawn::native::webgpu {
+
+using CaptureStream = std::ostream;
+
+// Starts a capture on the given device.
+DAWN_NATIVE_EXPORT void StartCapture(WGPUDevice device,
+                                     CaptureStream& commandStream,
+                                     CaptureStream& contentStream);
+
+// Ends a capture on the given device.
+DAWN_NATIVE_EXPORT void EndCapture(WGPUDevice device);
+
+}  // namespace dawn::native::webgpu
+
+#endif  // INCLUDE_DAWN_NATIVE_WEBGPUBACKEND_H_
