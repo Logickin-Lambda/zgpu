@@ -16,15 +16,15 @@ void dawnProcSetProcs(const DawnProcTable* procs_) {
 WGPUInstance wgpuCreateInstance(WGPUInstanceDescriptor const * descriptor) {
 return     procs.createInstance(descriptor);
 }
-WGPUProc wgpuGetProcAddress(WGPUDevice device, char const * procName) {
-return     procs.getProcAddress(device, procName);
+WGPUProc wgpuGetProcAddress(WGPUStringView procName) {
+return     procs.getProcAddress(procName);
 }
 
 WGPUDevice wgpuAdapterCreateDevice(WGPUAdapter adapter, WGPUDeviceDescriptor const * descriptor) {
 return     procs.adapterCreateDevice(adapter, descriptor);
 }
-size_t wgpuAdapterEnumerateFeatures(WGPUAdapter adapter, WGPUFeatureName * features) {
-return     procs.adapterEnumerateFeatures(adapter, features);
+size_t wgpuProcAdapterGetFeatures(WGPUAdapter adapter, WGPUSupportedFeatures * features) {
+return     procs.adapterGetFeatures(adapter, features);
 }
 WGPUInstance wgpuAdapterGetInstance(WGPUAdapter adapter) {
 return     procs.adapterGetInstance(adapter);
